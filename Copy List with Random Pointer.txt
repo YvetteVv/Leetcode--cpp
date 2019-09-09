@@ -1,0 +1,47 @@
+/**
+ * Definition for singly-linked list with a random pointer.
+ * struct RandomListNode {
+ *     int label;
+ *     RandomListNode *next, *random;
+ *     RandomListNode(int x) : label(x), next(NULL), random(NULL) {}
+ * };
+ */
+class Solution {
+unordered_map<RandomListNode*, RandomListNode*> hmap;
+
+public:
+RandomListNode *copyRandomList(RandomListNode *head) {
+	if (!head) return NULL;
+	if (hmap.find(head) != hmap.end())
+		return hmap.find(head)->second;
+
+	RandomListNode* node = new RandomListNode(head->label);
+	hmap[head] = node;
+	node->next = copyRandomList(head->next);
+	node->random = copyRandomList(head->random);
+	return node;
+}
+};/**
+ * Definition for singly-linked list with a random pointer.
+ * struct RandomListNode {
+ *     int label;
+ *     RandomListNode *next, *random;
+ *     RandomListNode(int x) : label(x), next(NULL), random(NULL) {}
+ * };
+ */
+class Solution {
+unordered_map<RandomListNode*, RandomListNode*> hmap;
+
+public:
+RandomListNode *copyRandomList(RandomListNode *head) {
+	if (!head) return NULL;
+	if (hmap.find(head) != hmap.end())
+		return hmap.find(head)->second;
+
+	RandomListNode* node = new RandomListNode(head->label);
+	hmap[head] = node;
+	node->next = copyRandomList(head->next);
+	node->random = copyRandomList(head->random);
+	return node;
+}
+};

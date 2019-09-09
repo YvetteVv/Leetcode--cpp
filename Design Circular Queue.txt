@@ -1,0 +1,101 @@
+
+class MyCircularQueue {
+public:
+	/** Initialize your data structure here. Set the size of the queue to be k. */
+	std::vector<int> save;
+	int q_start;
+	int q_end;
+	int q_size;
+	int q_number;
+	MyCircularQueue(int k) {
+		q_start = 0;
+		q_end = 0;
+		q_size = k;
+		q_number = 0;
+		for (int n = 1; n < k; n++) {
+			save.push_back(0);
+		}
+	}
+
+	/** Insert an element into the circular queue. Return true if the operation is successful. */
+	bool enQueue(int value) {
+		if (q_number < q_size) {
+			if (1+q_end == q_size) {
+				
+				save[q_end]=value;
+				q_end = 0;
+				q_number++;
+				return true;
+			}
+			save[q_end] = value;
+			q_end++;
+			q_number++;
+			return true;
+		}
+		return false;
+
+	}
+
+	/** Delete an element from the circular queue. Return true if the operation is successful. */
+	bool deQueue() {
+		if (q_number > 0) {
+			q_number--;
+			if (q_start + 1 < q_size) {
+				q_start++;
+				return true;
+			}
+			
+			q_start = 0;
+			return true;
+
+		}
+		return false;
+	}
+
+	/** Get the front item from the queue. */
+	int Front() {
+		if (q_number == 0) {
+			return -1;
+		}
+		return save[q_start];
+	}
+
+	/** Get the last item from the queue. */
+	int Rear() {
+		if (q_number == 0) {
+			return -1;
+		}
+		if (q_end - 1 >=  0) {
+			return save[q_end - 1];
+		}
+		return save[q_size - 1];
+		
+	}
+
+	/** Checks whether the circular queue is empty or not. */
+	bool isEmpty() {
+		if (q_number == 0) {
+			return true;
+		}
+		return false;
+	}
+
+	/** Checks whether the circular queue is full or not. */
+	bool isFull() {
+		if (q_number == q_size) {
+			return true;
+		}
+		return false;
+	}
+};
+
+/**
+ * Your MyCircularQueue object will be instantiated and called as such:
+ * MyCircularQueue obj = new MyCircularQueue(k);
+ * bool param_1 = obj.enQueue(value);
+ * bool param_2 = obj.deQueue();
+ * int param_3 = obj.Front();
+ * int param_4 = obj.Rear();
+ * bool param_5 = obj.isEmpty();
+ * bool param_6 = obj.isFull();
+ */

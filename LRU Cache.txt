@@ -1,0 +1,40 @@
+class LRUCache {
+public:
+    LRUCache(int capacity) {
+        cap = capacity;
+        n = 0; // track the time of get and put
+        min = 1; // record the least recently used
+    }
+    
+    int get(int key) {
+        if (mp[key]==0){
+            mp.erase(key);
+            return -1;
+        }
+        else {
+            n++;
+            mp[key] = n;
+            pm[n] = key;
+            return mp_val[key];
+        }
+    }
+    
+    void put(int key, int value) {
+        n++;
+        if (mp.size()==cap && mp[key]==0) {
+            while (mp[pm[min]] != min) {
+                if (mp[pm[min]] == 0)
+                    mp.erase(pm[min]);
+                min++;
+            }
+            mp.erase(pm[min]);
+        }
+        mp[key] = n;
+        mp_val[key] = value;
+        pm[n] = key;
+    }
+private:
+    int cap, n, min; 
+    /* mp: key->n; mp_val: key->value; pm: n->key */
+    unordered_map<int,int> mp, mp_val, pm;
+};

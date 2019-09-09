@@ -1,0 +1,25 @@
+class Solution {
+public:
+    
+    void dfs(string a,int open,int close,int n,vector<string> &res){
+        if(open==close && open==n){
+            res.push_back(a);
+            return;
+        }
+        if(open<n){
+            dfs(a+"(",open+1,close,n,res);
+        }
+        if(close<open){
+            dfs(a+")",open,close+1,n,res);
+        }
+        
+    }
+    vector<string> generateParenthesis(int n) {
+        string s;
+        vector<string> res;
+        dfs(s,0,0,n,res);
+            
+        return res;
+        
+    }
+};

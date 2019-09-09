@@ -1,0 +1,19 @@
+class Solution {
+public:
+	std::vector<int> dailyTemperatures(std::vector<int>& temperatures) {
+		std::stack<std::pair<int, int>>s;
+		std::vector<int> o(temperatures.size(),0);
+		s.emplace(temperatures[0], 0);
+		for (int i = 1; i < temperatures.size(); i++)
+		{
+			
+			while (s.size() && temperatures[i] > s.top().first)
+			{
+				o[s.top().second] = i - s.top().second;
+				s.pop();
+			}
+			s.push(std::pair<int, int>(temperatures[i], i));
+		}
+		return o;
+	}
+};

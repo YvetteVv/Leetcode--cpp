@@ -1,0 +1,26 @@
+class TicTacToe {
+private:
+    int N;
+    vector<vector<int>> rowCnt;
+    vector<vector<int>> colCnt;
+    int diag1[2] = { 0 };
+    int diag2[2] = { 0 };
+public:
+    TicTacToe(int n) {
+        N = n;
+        rowCnt = vector<vector<int>>(2, vector<int>(N, 0));
+        colCnt = vector<vector<int>>(2, vector<int>(N, 0));
+     }
+    
+    int move(int row, int col, int player) {
+        if (++rowCnt[player-1][row] == N)
+            return player;
+        if (++colCnt[player-1][col] == N)
+            return player;
+        if (row == col && ++diag1[player-1] == N)
+            return player;
+        if (row+col+1 == N && ++diag2[player-1] == N)
+            return player;
+        return 0;
+    }
+};

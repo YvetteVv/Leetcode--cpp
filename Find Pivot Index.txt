@@ -1,0 +1,32 @@
+class Solution {
+public:
+	int pivotIndex(vector<int>& nums) {
+		
+		if (nums.size() < 3)
+		{
+			return -1;
+		}
+
+		int left = 0;
+		int right = 0;
+
+		for (int j = 1; j < nums.size(); j++)
+		{
+			right += nums[j];
+			
+			
+		}
+		if (right == 0) return 0;
+
+		for (int i = 1; i < nums.size(); i++)
+		{
+			left = left + nums[i-1];
+			right = right - nums[i];
+			if (left == right)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+};

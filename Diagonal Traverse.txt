@@ -1,0 +1,56 @@
+class Solution {
+public:
+	std::vector<int> findDiagonalOrder(std::vector<std::vector<int>>& matrix) {
+		std::vector<int> o;
+		if (matrix.size()==0) return o;
+		if (matrix.size() == 1) return matrix[0];
+		
+		std::vector<std::vector<int>> save;
+		for (int i = 0; i < matrix.size(); i++)
+		{
+			std::vector<int> tmp;
+			int r = i, c = 0;
+			while (r>=0&&c>=0&&r<matrix.size()&&c<matrix[0].size())
+			{
+				tmp.push_back(matrix[r][c]);
+				r--;
+				c++;
+			}
+			save.push_back(tmp);
+		}
+		for (int i = 1; i < matrix[0].size(); i++)
+		{
+			std::vector<int> tmp;
+			int r = matrix.size()-1, c = i;
+			while (r >= 0 && c >= 0 && r < matrix.size() && c < matrix[0].size())
+			{
+				tmp.push_back(matrix[r][c]);
+				r--;
+				c++;
+			}
+			save.push_back(tmp);
+		}
+		int n = 1, s = 0;
+		while (s< save.size())
+		{
+			if (n == 1)
+			{
+				for (int i = 0; i < save[s].size(); i++)
+				{
+					o.push_back(save[s][i]);
+				}
+			}
+			if (n == 0)
+			{
+				for (int i = save[s].size()-1; i>=0; i--)
+				{
+					o.push_back(save[s][i]);
+				}
+			}
+			n ^= 1;
+            s++;
+			
+		}
+		return o;
+	}
+};
